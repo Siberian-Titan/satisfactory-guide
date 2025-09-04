@@ -1,1 +1,421 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satisfactory Production Tier List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        header, main, footer {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #00ffcc;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+
+        .legend {
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .legend h2 {
+            color: #f0b429;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .legend-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        #search {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #00ffcc;
+            border-radius: 4px;
+            background-color: #2a2a2a;
+            color: #f0f0f0;
+            font-size: 16px;
+        }
+
+        #search::placeholder {
+            color: #888;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        th {
+            background-color: #333;
+            color: #f0b429;
+            padding: 15px;
+            text-align: left;
+            cursor: pointer;
+            user-select: none;
+            font-weight: 500;
+        }
+
+        th:hover {
+            background-color: #444;
+        }
+
+        th::after {
+            content: '↕';
+            margin-left: 8px;
+            opacity: 0.6;
+        }
+
+        th.asc::after {
+            content: '↑';
+            opacity: 1;
+        }
+
+        th.desc::after {
+            content: '↓';
+            opacity: 1;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #333;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #242424;
+        }
+
+        tbody tr:hover {
+            background-color: #2f2f2f;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            th, td {
+                padding: 10px 12px;
+            }
+            
+            .legend-items {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Satisfactory Production Tier List</h1>
+        <article class="legend">
+            <h2>Условные обозначения</h2>
+            <div class="legend-items">
+                <div class="legend-item"><span>🥇</span> S-Tier - Высший приоритет</div>
+                <div class="legend-item"><span>🟣</span> A-Tier - Высокий приоритет</div>
+                <div class="legend-item"><span>🔵</span> B-Tier - Средний приоритет</div>
+                <div class="legend-item"><span>🟢</span> C-Tier - Низкий приоритет</div>
+                <div class="legend-item"><span>⚫</span> D-Tier - Минимальный приоритет</div>
+            </div>
+        </article>
+    </header>
+
+    <main>
+        <div class="search-container">
+            <input type="text" id="search" placeholder="Поиск по всем полям...">
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th data-sort="number">№</th>
+                        <th data-sort="rating">Оценка</th>
+                        <th data-sort="name">Название</th>
+                        <th data-sort="product">Продукт</th>
+                        <th data-sort="composition">Состав</th>
+                        <th data-sort="conditions">Условия</th>
+                        <th data-sort="comment">Комментарий</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td data-rating="S">🥇 S</td>
+                        <td>Стальные винты</td>
+                        <td>Винты</td>
+                        <td>Стальной прут x1</td>
+                        <td>Ур. 3 ХАБа (Сталь)</td>
+                        <td>Критически важен. Резко увеличивает производство винтов.</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td data-rating="A">🟣 A</td>
+                        <td>Медные листы</td>
+                        <td>Листы</td>
+                        <td>Медная руда x2</td>
+                        <td>Ур. 2 Сборочного цеха</td>
+                        <td>Увеличивает производство медных изделий.</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td data-rating="B">🔵 B</td>
+                        <td>Железные прутья</td>
+                        <td>Прутья</td>
+                        <td>Железная руда x1</td>
+                        <td>Ур. 1 ХАБа</td>
+                        <td>Базовый ресурс для многих рецептов.</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td data-rating="C">🟢 C</td>
+                        <td>Пластик</td>
+                        <td>Нефтепродукт</td>
+                        <td>Сырая нефть x3</td>
+                        <td>Ур. 5 Перерабатывающего завода</td>
+                        <td>Используется для продвинутых производственных цепочек.</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td data-rating="D">⚫ D</td>
+                        <td>Угольный генератор</td>
+                        <td>Энергия</td>
+                        <td>Уголь x5</td>
+                        <td>Ур. 2 Энергетики</td>
+                        <td>Производит энергию из угля.</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td data-rating="S">🥇 S</td>
+                        <td>Суперкомпьютер</td>
+                        <td>Электроника</td>
+                        <td>Компьютер x2, АИО охлаждение x2</td>
+                        <td>Ур. 7 Производства</td>
+                        <td>Необходим для самых сложных технологий.</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td data-rating="A">🟣 A</td>
+                        <td>Алюминиевые детали</td>
+                        <td>Детали</td>
+                        <td>Алюминиевый слиток x3</td>
+                        <td>Ур. 6 Литейного цеха</td>
+                        <td>Важен для аэрокосмических проектов.</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td data-rating="B">🔵 B</td>
+                        <td>Мотор</td>
+                        <td>Детали</td>
+                        <td>Железный прут x2, Медный лист x1</td>
+                        <td>Ур. 3 Сборочного цеха</td>
+                        <td>Используется в механизмах.</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td data-rating="C">🟢 C</td>
+                        <td>Энергетическая ячейка</td>
+                        <td>Батареи</td>
+                        <td>Сера x2, Кварц x1</td>
+                        <td>Ур. 4 Химического завода</td>
+                        <td>Накопитель энергии.</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td data-rating="D">⚫ D</td>
+                        <td>Биотопливо</td>
+                        <td>Топливо</td>
+                        <td>Органика x2</td>
+                        <td>Ур. 1 Перерабатывающего завода</td>
+                        <td>Слабое топливо, но легко производится.</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td data-rating="S">🥇 S</td>
+                        <td>Тяжелый модульный каркас</td>
+                        <td>Каркасы</td>
+                        <td>Модульный каркас x5, Стальной винт x20</td>
+                        <td>Ур. 5 Производства</td>
+                        <td>Мощный строительный компонент.</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td data-rating="A">🟣 A</td>
+                        <td>Электромагнитный управляющий стержень</td>
+                        <td>Компоненты</td>
+                        <td>Стальной прут x2, Медный лист x1</td>
+                        <td>Ур. 4 Сборочного цеха</td>
+                        <td>Управление энергетическими системами.</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td data-rating="B">🔵 B</td>
+                        <td>Медная проволока</td>
+                        <td>Проволока</td>
+                        <td>Медная руда x1</td>
+                        <td>Ур. 1 ХАБа</td>
+                        <td>Базовый электронный компонент.</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td data-rating="C">🟢 C</td>
+                        <td>Стальной балка</td>
+                        <td>Строительство</td>
+                        <td>Стальной прут x2</td>
+                        <td>Ур. 3 ХАБа (Сталь)</td>
+                        <td>Строительный материал.</td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td data-rating="D">⚫ D</td>
+                        <td>Конвейерная лента MK1</td>
+                        <td>Логистика</td>
+                        <td>Железная пластина x2, Железный прут x2</td>
+                        <td>Ур. 2 Производства</td>
+                        <td>Базовая транспортировка.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <p>Satisfactory Production Tier List © 2023</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search');
+            const table = document.querySelector('table');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            const headers = table.querySelectorAll('th');
+            
+            // Функция поиска
+            searchInput.addEventListener('input', function() {
+                const searchText = this.value.toLowerCase();
+                
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    const matches = Array.from(cells).some(cell => 
+                        cell.textContent.toLowerCase().includes(searchText)
+                    );
+                    row.style.display = matches ? '' : 'none';
+                });
+            });
+            
+            // Функция сортировки
+            headers.forEach(header => {
+                header.addEventListener('click', function() {
+                    const sortType = this.dataset.sort;
+                    const columnIndex = Array.from(headers).indexOf(this);
+                    const isAscending = this.classList.contains('asc');
+                    
+                    // Сбрасываем классы сортировки у всех заголовков
+                    headers.forEach(h => {
+                        h.classList.remove('asc', 'desc');
+                    });
+                    
+                    // Устанавливаем класс для текущего заголовка
+                    this.classList.toggle('asc', !isAscending);
+                    this.classList.toggle('desc', isAscending);
+                    
+                    // Сортируем строки
+                    const sortedRows = rows.sort((a, b) => {
+                        const aCell = a.cells[columnIndex];
+                        const bCell = b.cells[columnIndex];
+                        
+                        let aValue = aCell.textContent;
+                        let bValue = bCell.textContent;
+                        
+                        // Для специальных типов данных
+                        if (sortType === 'number') {
+                            aValue = parseInt(aValue);
+                            bValue = parseInt(bValue);
+                        } else if (sortType === 'rating') {
+                            aValue = aCell.dataset.rating;
+                            bValue = bCell.dataset.rating;
+                        }
+                        
+                        if (isAscending) {
+                            return aValue > bValue ? 1 : -1;
+                        } else {
+                            return aValue < bValue ? 1 : -1;
+                        }
+                    });
+                    
+                    // Очищаем и перестраиваем таблицу
+                    while (tbody.firstChild) {
+                        tbody.removeChild(tbody.firstChild);
+                    }
+                    
+                    sortedRows.forEach(row => {
+                        tbody.appendChild(row);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
