@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satisfactory Recipes Guide</title>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            text-align: center;
+            padding: 2rem;
+            background-color: #00ffcc;
+            color: black;
+        }
+        main {
+            max-width: 80%;
+            margin: auto;
+            padding: 2rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow-x: scroll;
+        }
+        th, td {
+            padding: 0.5rem;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        thead {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background-color: inherit;
+        }
+        tbody tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        input[type="search"] {
+            display: block;
+            width: 100%;
+            height: 2rem;
+            margin-top: 1rem;
+            padding-left: 1rem;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .legend {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+        }
+        @media screen and (max-width: 600px) {
+ table {
+ font-size: small;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Satisfactory Recipes Guide</h1>
+    </header>
+    <main>
+        <div class="legend">
+            <span>🥇 S-Tier: Критически важный рецепт.</span>
+            <span>🟣 A-Tier: Важный рецепт.</span>
+            <span>⭐ B-Tier: Полезный рецепт.</span>
+        </div>
+        <input type="search" placeholder="Search..." id="searchInput">
+        <table id="recipesTable">
+            <thead>
+                <tr>
+                    <th onclick="sortTable('number')">№</th>
+                    <th onclick="sortTable('rating')">Оценка</th>
+                    <th onclick="sortTable('name')">Название</th>
+                    <th>Продукт</th>
+                    <th>Состав</th>
+                    <th>Условия</th>
+                    <th>Комментарий</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="№">1</td>
+                    <td data-label="Оценка">🥇 S</td>
+                    <td data-label="Название">Стальные винты</td>
+                    <td data-label="Продукт">Винты</td>
+                    <td data-label="Состав">Стальной прут x1</td>
+                    <td data-label="Условия">Ур. 3 ХАБа (Сталь)</td>
+                    <td data-label="Комментарий">Критически важен. Резко увеличивает производство винтов.</td>
+                </tr>
+                <tr>
+                    <td data-label="№">2</td>
+                    <td data-label="Оценка">🟣 A</td>
+                    <td data-label="Название">Медные болты</td>
+                    <td data-label="Продукт">Болты</td>
+                    <td data-label="Состав">Медная пластина x1</td>
+                    <td data-label="Условия">Ур. 2 ХАБа (Металл)</td>
+                    <td data-label="Комментарий">Полезен для производства болтов среднего качества.</td>
+                </tr>
+                <!-- Add more rows here -->
+            </tbody>
+        </table>
+    </main>
+    <footer style="text-align:center;padding:1rem;">© 2023 Satisfactory Recipes Guide</footer>
+    <script>
+        const searchInput = document.getElementById("searchInput");
+        const recipesTable = document.getElementById("recipesTable");
+        
+        // Search functionality
+        function filterRows() {
+            let searchTerm = searchInput.value.toLowerCase();
+            Array.from(recipesTable.querySelectorAll("tbody tr")).forEach(row => {
+                if (row.textContent.toLowerCase().includes(searchTerm)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+        searchInput.addEventListener("keyup", filterRows);
+
+        // Sorting functionality
+        function sortTable(columnName) {
+            let sortedData = [...recipesTable.querySelectorAll("tbody tr")].sort((a,b) => {
+                return a.querySelector(`[data-label="${columnName}"]`).innerText.localeCompare(b.querySelector(`[data-label="${columnName}"]`).innerText);
+            });
+            recipesTable.querySelector("tbody").append(...sortedData);
+        }
+    </script>
+</body>
+</html>
